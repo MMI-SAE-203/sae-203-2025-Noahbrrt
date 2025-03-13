@@ -1,13 +1,109 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
+import Button from '../components/Button.astro';
+import OrangeLogo from '../assets/orange.svg';
+import CinemaxLogo from '../assets/cinemax.svg';
+import UNFCLogo from '../assets/unfc.svg';
+import KonbiniLogo from '../assets/konbini.svg';
+import VilleBelfortLogo from '../assets/villebelfort.svg';
+import Astronaute from '../assets/astronaute.svg';
 ---
 
 <Layout>
-	<div class="bg-[rgb(238_242_255)]">
-    <div class="container py-20 space-y-8">
-      <h1>home page</h1>
+	<section class="relative w-full h-screen">
+	  <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
+		<source src="/hero.mp4" type="video/mp4">
+	  </video>
+  
+	  <div class="absolute inset-0 flex flex-col justify-end items-center text-center text-white px-6 pb-16">
+		<h1 class="text-3xl md:text-5xl font-bold leading-tight">
+		  <span class="text-cyan-400">Plongez</span> dans l’univers de la <span class="text-blue-400">Science-Fiction</span> – Sci-Fi Festival 2026
+		</h1>
+	  </div>
+	</section>
 
+  <section class="bg-gray-900 text-white py-10 px-6">
+    <h2 class="text-3xl font-bold">Présentation</h2>
+    <p class="mt-4 text-gray-300">
+      SciFiFestival est un événement dédié aux amateurs de science-fiction sous toutes ses formes : cinéma, littérature, jeux vidéo et technologies du futur. Venez découvrir une programmation unique de projections, conférences et expériences immersives.
+    </p>
+    <Button text="Plus d'info" url="#plus-info" />
+  </section>
+
+  <hr class="w-full border-t-2 border-white">
+
+  <section class="bg-gray-900 text-white py-10 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-white">Programme</h2>
+
+    <h3 class="text-2xl font-semibold text-white">Samedi 14 Mars :</h3>
+    <ul class="mt-2 space-y-2 text-gray-300">
+      <li>11h00 : Ouverture officielle du festival.</li>
+      <li>14h00 : Atelier Effets Spéciaux au Cinéma.</li>
+      <li>17h00 : Conférence : L’Intelligence Artificielle et le Cinéma.</li>
+      <li>21h00 : Projection du film Avatar.</li>
+    </ul>
+
+    <h3 class="mt-6 text-2xl font-semibold text-white">Dimanche 15 Mars :</h3>
+    <ul class="mt-2 space-y-2 text-gray-300">
+      <li>10h00 : Atelier de réalisation de courts-métrages pour amateurs.</li>
+      <li>19h00 : Rencontre avec Christopher Nolan et session de questions.</li>
+      <li>21h00 : Projection de films cultes du genre avec débats.</li>
+    </ul>
+
+    <Button text="Plus d'info" url="#plus-info" />
+  </section>
+
+  <hr class="w-full border-t-2 border-white">
+
+  <section class="bg-gray-900 text-white py-10 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-white">Lieu</h2>
+    <p class="text-gray-300"><a href="https://maps.google.com?q=22+Av.+Capt+de+la+Laurencie,+90000+Belfort" target="_blank" class="hover:underline">
+      22 Av. Capt de la Laurencie, 90000 Belfort
+    </a></p>
+
+    <div class="mt-4">
+      <iframe 
+        class="w-full h-64 rounded-lg"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9996281053144!2d2.2944814156740483!3d48.85884407928773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66ff7e5e2b10d%3A0xa53b4760f0c0a0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1616174289432!5m2!1sfr!2sfr"
+        allowfullscreen="" loading="lazy">
+      </iframe>
     </div>
-  </div>
+
+    <Button text="Plus d'info" url="#plus-info" />
+  </section>
+
+  <hr class="w-full border-t-2 border-white">
+
+  <section class="bg-gray-900 text-white py-10 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-white">Billetterie</h2>
+    <p class="text-gray-300">
+      Réservez votre place pour le festival dès maintenant et ne manquez pas une minute de l’action !
+    </p>
+
+    <Astronaute class="absolute top-605 left-5 w-32 -mb-8 -ml-6 z-0" />
+
+    <div class="flex justify-center mt-6">
+      <Button text="ACHETER MAINTENANT" url="/billetterie" variant="primary" />
+    </div>
+
+	
+  </section>
+  
+  <hr class="w-full border-t-2 border-white">
+
+  <section class="bg-gray-900 text-white py-10 px-6">
+    <div class="relative flex items-center">
+      <h2 class="absolute left-0 bg-gray-900 px-2 text-white text-3xl font-bold">Partenaires</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10 place-items-center">
+      <OrangeLogo class="h-20 w-auto" />
+      <CinemaxLogo class="h-14 w-auto" />
+      <UNFCLogo class="h-13 w-auto" />
+      <KonbiniLogo class="h-25 w-auto" />
+      <VilleBelfortLogo class="h-20 w-auto" />
+    </div>
+  </section>
+
+
 </Layout>

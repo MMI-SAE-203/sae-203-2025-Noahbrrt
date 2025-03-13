@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getFilmById, getAllFilmsSorted, pb } from '../../../backend/backend.mjs';
+
+export async function getStaticPaths() {
+  const films = await getAllFilmsSorted();
+  return films.map(film => ({
+    params: { id: film.id }
+  }));
+}
+
+const { id } = Astro.params;
+const film = await getFilmById(id);
+
+const afficheUrl = film.affiche 
+    ? pb.files.getUrl(film, film.affiche) 
+    : '/default-poster.jpg';
+
+
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6 flex flex-col items-center">
+
+    <h1 class="text-4xl font-bold text-center mb-6">{film.titre}</h1>
+
+    <div class="w-full max-w-lg mb-6">
+      <img src={afficheUrl} alt={`Affiche de ${film.titre}`} class="w-full h-auto rounded-lg shadow-lg" />
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-xl text-center">
+      <p class="text-lg font-semibold text-gray-300">{film.genre} | {film.annee_sortie}</p>
+
+      <div class="mt-4 space-y-2 text-gray-300">
+        <p><strong class="text-white">Réalisateur :</strong> {film.realisateur}</p>
+        <p><strong class="text-white">Durée :</strong> {film.duree}</p>
+        <p><strong class="text-white">Langue :</strong> {film.langue}</p>
+        <p><strong class="text-white">Production :</strong> {film.production}</p>
+
+        {film.ba && (
+          <p><strong class="text-white">Bande-annonce :</strong> <a href={film.ba} target="_blank" class="text-cyan-400 hover:underline">Voir</a></p>
+        )}
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="/films" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300">
+        ⬅ Retour à la programmation
+      </a>
+    </div>
+    
+  </section>
+</Layout>
+
+
+

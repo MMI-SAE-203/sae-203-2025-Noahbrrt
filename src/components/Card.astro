@@ -1,0 +1,39 @@
+---
+export interface Props {
+    id: string;
+    titre: string;
+    affiche: string;
+    genre: string;
+    realisateur: string;
+    annee_sortie: string;
+    invite: string;
+    date_projection: string;
+}
+
+const { id, titre, affiche, genre, realisateur, annee_sortie, invite, date_projection } = Astro.props;
+---
+<a href={`/programmation/${id}`} class="block">
+<div class="flex-shrink-0 w-[300px] bg-white p-4 rounded-lg shadow-lg text-center mx-4">
+    <a href={`/films/${id}`} class="block text-center">
+        <img src={affiche} alt={`Affiche de ${titre}`} class="max-w-full h-auto mx-auto" />
+    </a>
+    <div class="mt-4">
+        <h3 class="text-xl font-bold text-gray-900">{titre}</h3>
+        <p class="text-gray-500">{genre}</p>
+        
+        <p class="text-sm text-gray-700 mt-2">
+            <strong class="text-black">Réalisateur :</strong> {realisateur}
+        </p>
+        <p class="text-sm text-gray-700">
+            <strong class="text-black">Date de sortie :</strong> {annee_sortie}
+        </p>
+        <p class="text-sm text-gray-700">
+            <strong class="text-black">Invité associé :</strong> {invite}
+        </p>
+    </div>
+
+    <div class="mt-3 bg-cyan-400 text-black font-bold px-4 py-2 rounded-lg">
+        {new Date(date_projection).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}h
+    </div>
+</div>
+</a>

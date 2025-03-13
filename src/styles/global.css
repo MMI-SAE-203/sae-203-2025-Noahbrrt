@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply font-sans text-base leading-normal;
+  }
+  p {
+    @apply text-base font-sans leading-normal;
+    font-family: 'Roboto', light, sans-serif;
+  }
+  h1 {
+    @apply text-4xl font-mono leading-tight lg:text-6xl;
+    font-family: 'Orbitron', sans-serif;
+  }
+  h2 {
+    @apply text-2xl font-mono leading-tight lg:text-4xl;
+    font-family: 'Orbitron', sans-serif;
+  }
+  h3, nav {
+    @apply text-xl font-sans font-bold leading-tight my-4;
+    font-family: 'Orbitron', sans-serif;
+  }
+  ::selection {
+    @apply bg-(--color-pink);
+  }
+}

@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllFilmsSorted } from '../../../backend/backend.mjs';
+import Card from '../../components/Card.astro';
+
+const films = await getAllFilmsSorted();
+
+const filmsByDate = films.reduce((acc, film) => {
+  const date = new Date(film.date_projection).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+  if (!acc[date]) acc[date] = [];
+  acc[date].push(film);
+  return acc;
+}, {});
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6">
+    <h1 class="text-4xl font-bold mb-6 text-center">Programmation</h1>
+    <p class="text-gray-400 text-lg text-center mb-8">Explorez la programmation complète du festival.</p>
+
+    {Object.entries(filmsByDate).map(([date, films], index) => (
+      <div key={date} class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-white pb-2 text-center">{date}</h2>
+
+        <div class="relative flex items-center justify-center">
+          <!-- Bouton gauche -->
+          <button class="arrow-left absolute left-2 z-10 bg-gray-800 p-2 rounded-full text-white">
+            ⬅️
+          </button>
+
+          <!-- Carrousel -->
+          <div class="carousel-container overflow-hidden w-[320px] flex items-center">
+            <div class="carousel flex transition-transform duration-500 ease-in-out" data-index="1" style={`transform: translateX(-320px);`}>
+              {films.map((film) => (
+                <Card 
+                  key={film.id}
+                  id={film.id}
+                  titre={film.titre}
+                  affiche={film.imageUrl}
+                  genre={film.genre}
+                  realisateur={film.realisateur}
+                  annee_sortie={film.annee_sortie}
+                  invite={film.expand?.invite?.nom || 'Aucun'}
+                  date_projection={film.date_projection}
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Bouton droit -->
+          <button class="arrow-right absolute right-2 z-10 bg-gray-800 p-2 rounded-full text-white">
+            ➡️
+          </button>
+        </div>
+      </div>
+    ))}
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".carousel").forEach((carousel, index) => {
+      let currentIndex = 1; 
+      const totalItems = carousel.children.length;
+      const cardWidth = 320; 
+      const leftArrow = document.querySelectorAll(".arrow-left")[index];
+      const rightArrow = document.querySelectorAll(".arrow-right")[index];
+
+      function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      }
+
+      rightArrow.addEventListener("click", () => {
+        if (currentIndex < totalItems - 1) {
+          currentIndex++;
+          updateCarousel();
+        }
+      });
+
+      leftArrow.addEventListener("click", () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      });
+    });
+  });
+</script>

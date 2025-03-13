@@ -1,0 +1,41 @@
+---
+const { text, url, variant = "default" } = Astro.props;
+---
+
+<a href={url} class={`btn ${variant}`}>
+  {text}
+</a>
+
+<style>
+   .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 300; 
+    text-transform: uppercase; 
+    font-family: 'Oswald', sans-serif; 
+    text-align: center;
+    border-radius: 50px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .default {
+    background-color: #00eaff;
+    color: #000000;
+    margin-top: 40px;
+  }
+
+  .primary {
+    background-color: #00eaff;
+    color: #000000;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+  }
+
+  .btn:active {
+    transform: scale(0.95);
+  }
+
+</style>

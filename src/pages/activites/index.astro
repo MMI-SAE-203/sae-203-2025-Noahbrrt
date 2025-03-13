@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllActivitiesSorted } from '../../../backend/backend.mjs';
+import ActivityCard from '../../components/ActivityCard.astro';
+
+const activities = await getAllActivitiesSorted();
+
+const activitiesByDate = activities.reduce((acc, activity) => {
+  const date = new Date(activity.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+  if (!acc[date]) acc[date] = [];
+  acc[date].push(activity);
+  return acc;
+}, {});
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6 flex flex-col items-center">
+    <h1 class="text-4xl font-bold mb-6 text-center">Activités</h1>
+    <p class="text-gray-400 text-lg text-center mb-8">Découvrez les événements et conférences du festival.</p>
+
+    {Object.entries(activitiesByDate).map(([date, activities], index) => (
+      <div key={date} class="mb-12 w-full flex flex-col items-center">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-white pb-2 text-center">{date}</h2>
+
+        <div class="flex flex-col items-center space-y-6 w-full">
+          {activities.map((activity) => (
+            <ActivityCard 
+  key={activity.id}
+  id={activity.id}
+  titre={activity.titre}
+  imageUrl={activity.imageUrl}
+  type={activity.type}
+  description={activity.description}
+  invite={activity.inviteName}
+/>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</Layout>

@@ -1,16 +1,28 @@
 import PocketBase from 'pocketbase';
 const pb = new PocketBase('http://127.0.0.1:8090');
 
+export { pb };
+
 export async function getAllFilmsSorted() {
-    const records = await pb.collection('films').getFullList({
-        sort: 'date_projection'
+    let records = await pb.collection('films').getFullList({
+        sort: 'date_projection',
+        expand: 'invite',
     });
+    records = records.map((record) => {
+        record.imageUrl = pb.files.getURL(record, record.affiche);
+        return record;
+    })
     return records;
 }
 
 export async function getAllActivitiesSorted() {
     const records = await pb.collection('activites').getFullList({
-        sort: 'date'
+        sort: 'date',
+        expand: 'invite'
+    });
+    records.forEach((record) => {
+        record.imageUrl = pb.files.getUrl(record, record.image);
+        record.inviteName = record.expand?.invite ? `${record.expand.invite.prenom} ${record.expand.invite.nom}` : "Non spécifié"; 
     });
     return records;
 }
@@ -29,6 +41,7 @@ export async function getFilmById(id) {
 
 export async function getActivityById(id) {
     const record = await pb.collection('activites').getOne(id);
+    record.imageUrl = pb.files.getUrl(record, record.image);
     return record;
 }
 
@@ -79,5 +92,11 @@ export async function addGuest(data) {
 
 export async function updateGuest(id, data) {
     const record = await pb.collection('invites').update(id, data);
+    return record;
+}
+
+export async function getFilmById(id) {
+    const record = await pb.collection('films').getOne(id);
+    console.log("Affiche URL:", pb.files.getUrl(record, record.affiche)); // Vérifie si l'URL est bonne
     return record;
 }

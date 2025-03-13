@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getActivityById, getAllActivitiesSorted, pb } from '../../../backend/backend.mjs';
+
+export async function getStaticPaths() {
+  const activities = await getAllActivitiesSorted();
+  return activities.map(activity => ({
+    params: { id: activity.id }
+  }));
+}
+
+const { id } = Astro.params;
+const activity = await getActivityById(id);
+
+const imageUrl = activity.image 
+    ? pb.files.getUrl(activity, activity.image) 
+    : '/default-image.jpg';
+
+const inviteName = activity.expand?.invite 
+    ? `${activity.expand.invite.prenom} ${activity.expand.invite.nom}`
+    : "Non spécifié";
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6 flex flex-col items-center">
+
+    <h1 class="text-5xl font-extrabold text-center mb-10 bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+      {activity.titre}
+    </h1>
+
+    <div class="flex flex-col md:flex-row items-center md:items-start max-w-4xl bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
+
+      <div class="w-full md:w-1/2">
+        <img src={imageUrl} alt={`Illustration de ${activity.titre}`} class="w-full h-auto rounded-lg shadow-md" />
+      </div>
+
+      <div class="w-full md:w-1/2 md:pl-8 text-center md:text-left space-y-4 mt-6 md:mt-0">
+        
+        <p class="text-xl font-semibold text-cyan-400">{activity.type}</p>
+
+        <p class="text-lg"><strong class="text-white">Date :</strong> {new Date(activity.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+        <p class="text-lg"><strong class="text-white">Heure :</strong> {new Date(activity.date).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}h</p>
+        <p class="text-lg"><strong class="text-white">Lieu :</strong> {activity.lieu}</p>
+        <p class="text-lg"><strong class="text-white">Invité :</strong> {inviteName}</p>
+
+        <p class="text-gray-300 mt-4 text-justify">{activity.description}</p>
+      </div>
+
+    </div>
+
+    <div class="mt-8">
+      <a href="/activites" class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+        ⬅ Retour aux activités
+      </a>
+    </div>
+
+  </section>
+</Layout>
+

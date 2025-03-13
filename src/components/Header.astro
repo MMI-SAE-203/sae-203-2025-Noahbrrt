@@ -3,46 +3,58 @@ import Home from '../assets/icons/Vector.svg';
 import MenuIcon from '../assets/icons/menu-open.svg';
 import Search from '../assets/icons/search.svg';
 import CloseIcon from '../assets/icons/close.svg';
-const currentPath = Astro.url.pathname;
 ---
-<header class="flex items-center justify-between px-4 h-20 bg-gray-900 text-white border-b-2 border-b-indigo-100">
-    <a href="/" class="flex items-center gap-2">
-      <Home class="h-8 w-8" />
+
+<header class="sticky top-0 left-0 w-full flex items-center justify-between px-6 h-20 text-white z-50 bg-gradient-to-b from-gray-900 to-gray-800 shadow-lg">
+    <a href="/" aria-label="Accueil">
+        <Home class="h-6 w-7" />
     </a>
-  
-    <button id="menu-btn" aria-label="Ouvrir le menu">
-      <MenuIcon class="h-6 w-6" />
-      <Search class="h-6 w-6" />
+    <div class="flex items-center gap-6">
+        <button id="search-btn" aria-label="Rechercher">
+            <Search class="h-6 w-6" />
+        </button>
+        <button id="menu-btn" aria-label="Ouvrir le menu">
+            <MenuIcon class="h-6 w-6" />
+        </button>
+    </div>
+</header>
+
+<nav id="menu" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white opacity-0 invisible transition-all duration-300" aria-hidden="true">
+
+    <button id="close-menu" aria-label="Fermer le menu" class="absolute top-6 right-6">
+        <CloseIcon class="h-8 w-8 text-white" />
     </button>
-  </header>
-  
-  <nav id="menu" class="fixed inset-0 z-20 flex flex-col items-center justify-center bg-gray-900 text-white opacity-0 invisible transition-opacity duration-300" aria-hidden="true">
-    <button id="close-menu" aria-label="Fermer le menu">
-      <CloseIcon class="h-8 w-8 text-white absolute top-5 right-5" />
-    </button>
-  
-    <ul class="text-center space-y-6 text-lg font-medium">
-      <li><a href="#infos" class="block hover:text-indigo-400">Infos pratiques</a></li>
-      <li><a href="#billetterie" class="block hover:text-indigo-400">Billetterie</a></li>
-      <li><a href="#festival" class="block hover:text-indigo-400">Le Festival</a></li>
-      <li><a href="#contact" class="block hover:text-indigo-400">Contact</a></li>
-      <li><a href="#inscription" class="block hover:text-indigo-400">Inscription</a></li>
+
+    <ul class="text-center space-y-8 text-xl font-semibold tracking-wide mt-10">
+        <li><a href="/infos" class="block hover:text-indigo-400 transition duration-300">Infos pratiques</a></li>
+        <li><a href="/billetterie" class="block hover:text-indigo-400 transition duration-300">Billetterie</a></li>
+        <li><a href="/films" class="block hover:text-indigo-400 transition duration-300">Programmation</a></li>
+        <li><a href="/festival" class="block hover:text-indigo-400 transition duration-300">Le festival</a></li>
+        <li><a href="/activities" class="block hover:text-indigo-400 transition duration-300">Les Activités</a></li>
+        <li><a href="/inscription" class="block hover:text-indigo-400 transition duration-300">Inscription</a></li>
     </ul>
-  </nav>
-  
-  <script>
+</nav>
+
+<script>
     document.addEventListener("DOMContentLoaded", () => {
-      const menuBtn = document.getElementById("menu-btn");
-      const closeMenuBtn = document.getElementById("close-menu");
-      const menu = document.getElementById("menu");
-  
-      function toggleMenu(open) {
-        menu.ariaHidden = !open;
-        menu.classList.toggle("opacity-100", open);
-        menu.classList.toggle("visible", open);
-      }
-  
-      menuBtn.addEventListener("click", () => toggleMenu(true));
-      closeMenuBtn.addEventListener("click", () => toggleMenu(false));
+        const menuBtn = document.getElementById("menu-btn");
+        const closeMenuBtn = document.getElementById("close-menu");
+        const menu = document.getElementById("menu");
+        const searchBtn = document.getElementById("search-btn");
+
+        function toggleMenu(open) {
+            menu.ariaHidden = !open;
+            menu.classList.toggle("opacity-100", open);
+            menu.classList.toggle("visible", open);
+            menu.classList.toggle("invisible", !open);
+
+            menuBtn.style.display = open ? "none" : "block";
+            searchBtn.style.display = open ? "none" : "block";
+            closeMenuBtn.style.display = open ? "block" : "none"; 
+        }
+
+        menuBtn.addEventListener("click", () => toggleMenu(true));
+        closeMenuBtn.addEventListener("click", () => toggleMenu(false));
     });
-  </script>
+</script>
+  
