@@ -4,7 +4,6 @@ import { getAllFilmsSorted } from '../../../backend/backend.mjs';
 import Card from '../../components/Card.astro';
 
 const films = await getAllFilmsSorted();
-console.log(films[0].expand.invites);
 
 const filmsByDate = films.reduce((acc, film) => {
   const date = new Date(film.date_projection).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
@@ -12,6 +11,8 @@ const filmsByDate = films.reduce((acc, film) => {
   acc[date].push(film);
   return acc;
 }, {});
+
+const genres = [...new Set(films.map(film => film.genre))].sort();
 ---
 
 <Layout>
@@ -19,64 +20,91 @@ const filmsByDate = films.reduce((acc, film) => {
     <h1 class="text-4xl font-bold mb-6 text-center">Programmation</h1>
     <p class="text-gray-400 text-lg text-center mb-8">Explorez la programmation complète du festival.</p>
 
-    {Object.entries(filmsByDate).map(([date, films]) => (
-      <div key={date} class="mb-12">
-        <h2 class="text-2xl font-bold mb-6 border-b-2 border-white pb-2 text-center">{date}</h2>
+    <div class="flex justify-center mb-8">
+      <label for="genre-filter" class="text-white text-lg font-semibold mr-4">Filtrer par genre :</label>
+      <select id="genre-filter" class="bg-cyan-500 text-white px-4 py-2 rounded-lg border border-white shadow-md focus:outline-none focus:ring-2 focus:ring-cyan-300 transition duration-300">
+        <option value="all">Tous</option>
+        {genres.map((genre) => (
+          <option value={genre}>{genre}</option>
+        ))}
+      </select>
+    </div>
 
-        <div class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          {films.map((film) => (
-            <div class="w-full max-w-xs">  
-              <Card 
-                key={film.id}
-                id={film.id}
-                titre={film.titre}
-                affiche={film.imageUrl}
-                genre={film.genre}
-                realisateur={film.realisateur}
-                annee_sortie={film.annee_sortie}
-                invite={`${film.expand?.invites.prenom || ''} ${film.expand?.invites.nom || ''}` || 'Aucun'}
-                date_projection={film.date_projection}
-              />
-            </div>
-          ))}
-        </div>
+    <div id="films-container">
+      {Object.entries(filmsByDate).map(([date, films]) => (
+        <div key={date} class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 border-b-2 border-white pb-2 text-center">{date}</h2>
 
-        <div class="relative flex items-center justify-center lg:hidden">
-          <button class="arrow-left absolute left-2 z-10 bg-gray-800 p-2 rounded-full text-white">
-            ⬅️
-          </button>
-
-          <div class="carousel-container overflow-hidden w-[320px] flex items-center">
-            <div class="carousel flex transition-transform duration-500 ease-in-out" data-index="1" style={`transform: translateX(-320px);`}>
-              {films.map((film) => (
-                <div class="w-full max-w-xs">
-                  <Card 
-                    key={film.id}
-                    id={film.id}
-                    titre={film.titre}
-                    affiche={film.imageUrl}
-                    genre={film.genre}
-                    realisateur={film.realisateur}
-                    annee_sortie={film.annee_sortie}
-                    invite={film.expand?.invites.nom || 'Aucun'}
-                    date_projection={film.date_projection}
-                  />
-                </div>
-              ))}
-            </div>
+          <div class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+            {films.map((film) => (
+              <div class="w-full max-w-xs film-card" data-genre={film.genre}>  
+                <Card 
+                  key={film.id}
+                  id={film.id}
+                  titre={film.titre}
+                  affiche={film.imageUrl}
+                  genre={film.genre}
+                  realisateur={film.realisateur}
+                  annee_sortie={film.annee_sortie}
+                  invite={`${film.expand?.invites.prenom || ''} ${film.expand?.invites.nom || ''}`.trim() || 'Aucun'}
+                  date_projection={film.date_projection}
+                />
+              </div>
+            ))}
           </div>
 
-          <button class="arrow-right absolute right-2 z-10 bg-gray-800 p-2 rounded-full text-white">
-            ➡️
-          </button>
+          <div class="relative flex items-center justify-center lg:hidden">
+            <button class="arrow-left absolute left-2 z-10 bg-gray-800 p-2 rounded-full text-white">
+              ⬅️
+            </button>
+
+            <div class="carousel-container overflow-hidden w-[320px] flex items-center">
+              <div class="carousel flex transition-transform duration-500 ease-in-out" data-index="1" style={`transform: translateX(-320px);`}>
+                {films.map((film) => (
+                  <div class="w-full max-w-xs film-card" data-genre={film.genre}>
+                    <Card 
+                      key={film.id}
+                      id={film.id}
+                      titre={film.titre}
+                      affiche={film.imageUrl}
+                      genre={film.genre}
+                      realisateur={film.realisateur}
+                      annee_sortie={film.annee_sortie}
+                      invite={`${film.expand?.invites.prenom || ''} ${film.expand?.invites.nom || ''}`.trim() || 'Aucun'}
+                      date_projection={film.date_projection}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button class="arrow-right absolute right-2 z-10 bg-gray-800 p-2 rounded-full text-white">
+              ➡️
+            </button>
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </section>
 </Layout>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const genreFilter = document.getElementById("genre-filter");
+    const filmCards = document.querySelectorAll(".film-card");
+
+    genreFilter.addEventListener("change", (event) => {
+      const selectedGenre = event.target.value;
+
+      filmCards.forEach(card => {
+        if (selectedGenre === "all" || card.dataset.genre === selectedGenre) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+
     document.querySelectorAll(".carousel").forEach((carousel, index) => {
       let currentIndex = 1; 
       const totalItems = carousel.children.length;

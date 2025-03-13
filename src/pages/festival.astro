@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const images = [
+  '/src/assets/img/avatar.webp',
+  '/src/assets/img/interstellar.webp',
+  '/src/assets/img/retour.webp'
+];
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6">
+    <h1 class="text-4xl font-bold mb-6 text-center">À propos</h1>
+    <p class="text-gray-300 text-center max-w-3xl mx-auto">
+        Le festival propose des courts-métrages de passionnés de science-fiction en compétition, avec un prix à gagner. Des films phares et moins connus seront diffusés, certains en présence de leur réalisateur, offrant au public des rencontres exclusives. Pour enrichir l'expérience, un concert de musiques cultes de films de science-fiction est également prévu.
+    </p>
+    <div class="flex justify-center mt-8 relative">
+      <div class="carousel-container overflow-hidden w-[320px] flex items-center">
+        <div class="carousel flex transition-transform duration-500 ease-in-out">
+          {images.map((image, index) => (
+            <img key={index} src={image} alt="Festival Image" class="w-full rounded-lg shadow-lg object-cover" />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-900 text-white py-16 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-center">Valeurs</h2>
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold text-cyan-400">Innovation</h3>
+        <p class="text-gray-300">Un des ethos du festival pourrait être l'exploration de l’inconnu ainsi que l’imagination, et donc l’innovation. La science-fiction pousse le réalisateur à être imaginatif, pour offrir un contenu divers et se démarquer du déjà-vu. Ainsi, les courts métrages proposés par le festival sont également dans cette catégorie d’ethos.</p>
+        <img src="/src/assets/img/matrix.webp" alt="Matrix" class="w-full mt-4 rounded-lg shadow-lg" />
+      </div>
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold text-cyan-400">Créativité</h3>
+        <p class="text-gray-300">
+            Dans l’idée d’innovation, le festival se doit d’être créatif pour se démarquer des festivals déjà existants. Pour le public également, le festival doit le divertir au maximum. Il doit sortir du lot et aisément attirer le public. La créativité est donc un élément essentiel. De plus, les courts métrages qui seront diffusés se doivent d’être créatifs pour atteindre un maximum de personnes présentes dans le public.</p>
+        <img src="/src/assets/img/inception.webp" alt="Inception" class="w-full mt-4 rounded-lg shadow-lg" />
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-cyan-400">Curiosité</h3>
+        <p class="text-gray-300">La curiosité et la créativité sont au cœur du festival, attirant le public avec des réalisateurs peu connus, des courts métrages innovants et des ateliers participatifs. La communication met en avant les scènes, concerts, et bandes-annonces pour susciter l’intérêt. Les participants sont encouragés à explorer et créer leurs propres courts métrages, rendant l'événement attractif et interactif, tout en laissant place à la découverte personnelle.</p>
+        <img src="/src/assets/img/2001.webp" alt="2001: L'Odyssée de l'espace" class="w-full mt-4 rounded-lg shadow-lg" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let currentIndex = 0;
+    const carousel = document.querySelector(".carousel");
+    const totalItems = carousel.children.length;
+
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${currentIndex * 320}px)`;
+    }
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalItems;
+      updateCarousel();
+    }, 3000);
+  });
+</script>
