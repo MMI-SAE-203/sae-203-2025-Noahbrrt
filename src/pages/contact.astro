@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <section class="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-6 flex flex-col items-center">
+    <h1 class="text-4xl font-bold mb-6 text-center tracking-wide">Contact</h1>
+    <p class="text-gray-300 text-center max-w-sm leading-relaxed">
+      Si vous vous posez des questions par rapport au site ou s'il y a une erreur dedans, n’hésitez pas à faire un retour !
+    </p>
+
+    <form class="mt-8 w-full max-w-sm bg-transparent">
+
+      <div class="mb-4">
+        <label for="nom" class="block text-white text-sm font-semibold tracking-wide">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Nom"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-4">
+        <label for="prenom" class="block text-white text-sm font-semibold tracking-wide">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Prénom"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-white text-sm font-semibold tracking-wide">Adresse e-mail *</label>
+        <input type="email" id="email" name="email" placeholder="e-mail*"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-6">
+        <label for="message" class="block text-white text-sm font-semibold tracking-wide">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder=""
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none"></textarea>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-cyan-400 text-black font-bold py-2 px-6 rounded-lg shadow-md hover:bg-cyan-500 transition duration-300">
+        Envoyer
+      </button>
+    </form>
+  </section>
+
+</Layout>
+

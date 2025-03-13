@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllGuestsSorted } from '../../../backend/backend.mjs';
+import InvitesCard from '../../components/InvitesCard.astro';
+
+const guests = await getAllGuestsSorted();
+---
+
+<Layout>
+  <section class="bg-gray-900 text-white py-16 px-6">
+    <h1 class="text-4xl font-bold mb-6 text-center">Les Invités</h1>
+    <p class="text-gray-400 text-lg text-center mb-8">Découvrez les réalisateurs, acteurs et spécialistes présents au festival.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
+      {guests.map((guest) => (
+        <InvitesCard 
+          key={guest.id}
+          id={guest.id}
+          nom={guest.nom}
+          prenom={guest.prenom}
+          role={guest.role}
+          photoUrl={guest.photo ? guest.photoUrl : '/default-avatar.jpg'}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>

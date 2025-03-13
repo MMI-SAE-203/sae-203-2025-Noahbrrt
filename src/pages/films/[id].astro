@@ -2,12 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getFilmById, getAllFilmsSorted, pb } from '../../../backend/backend.mjs';
 
-export async function getStaticPaths() {
-  const films = await getAllFilmsSorted();
-  return films.map(film => ({
-    params: { id: film.id }
-  }));
-}
+
 
 const { id } = Astro.params;
 const film = await getFilmById(id);

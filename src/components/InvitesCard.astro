@@ -1,0 +1,23 @@
+---
+export interface Props {
+    id: string;
+    nom: string;
+    prenom: string;
+    role: string;
+    photoUrl: string;
+}
+
+const { id, nom, prenom, role, photoUrl } = Astro.props;
+---
+
+<a href={`/invites/${id}`} class="block">
+  <div class="bg-white p-4 rounded-lg shadow-lg text-center transition transform hover:scale-105 hover:shadow-xl">
+      <img src={photoUrl} alt={`Photo de ${prenom} ${nom}`} 
+          class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-gray-300">
+
+      <div class="mt-3">
+          <h3 class="text-lg font-bold text-gray-900">{prenom} {nom}</h3>
+          <p class="text-gray-600 font-semibold">{role}</p>
+      </div>
+  </div>
+</a>

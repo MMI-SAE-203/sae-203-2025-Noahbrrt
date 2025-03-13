@@ -6,7 +6,7 @@ export { pb };
 export async function getAllFilmsSorted() {
     let records = await pb.collection('films').getFullList({
         sort: 'date_projection',
-        expand: 'invite',
+        expand: 'invites',
     });
     records = records.map((record) => {
         record.imageUrl = pb.files.getURL(record, record.affiche);
@@ -16,21 +16,31 @@ export async function getAllFilmsSorted() {
 }
 
 export async function getAllActivitiesSorted() {
-    const records = await pb.collection('activites').getFullList({
+    let records = await pb.collection('activites').getFullList({
         sort: 'date',
-        expand: 'invite'
+        expand: 'invites',
     });
-    records.forEach((record) => {
+
+    records = records.map((record) => {
         record.imageUrl = pb.files.getUrl(record, record.image);
-        record.inviteName = record.expand?.invite ? `${record.expand.invite.prenom} ${record.expand.invite.nom}` : "Non spécifié"; 
+        record.inviteName = record.expand?.invite 
+        return record;
     });
+
     return records;
 }
-
 export async function getAllGuestsSorted() {
-    const records = await pb.collection('invites').getFullList({
-        sort: 'nom'
+    let records = await pb.collection('invites').getFullList({
+        sort: 'nom',
     });
+
+    records = records.map((record) => {
+        return {
+            ...record,
+            photoUrl: record.photo ? pb.files.getUrl(record, record.photo) : '/default-avatar.jpg',
+        };
+    });
+
     return records;
 }
 

@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <section class="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-6 flex flex-col items-center">
+    <h1 class="text-3xl font-bold mb-6 text-center tracking-wide">Inscription</h1>
+    
+    <form class="mt-4 w-full max-w-sm bg-transparent">
+      <div class="mb-4">
+        <label for="nom" class="block text-white text-sm font-semibold tracking-wide">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Nom"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-4">
+        <label for="prenom" class="block text-white text-sm font-semibold tracking-wide">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Prénom"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-4">
+        <label for="age" class="block text-white text-sm font-semibold tracking-wide">Âge</label>
+        <input type="number" id="age" name="age" placeholder="Âge"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-white text-sm font-semibold tracking-wide">Adresse e-mail *</label>
+        <input type="email" id="email" name="email" placeholder="e-mail*"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-white text-sm font-semibold tracking-wide">Mot de passe *</label>
+        <input type="password" id="password" name="password" placeholder="Mots de passe*"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-cyan-400 text-black font-bold py-2 px-6 rounded-lg shadow-md hover:bg-cyan-500 transition duration-300">
+        Créer un compte
+      </button>
+    </form>
+
+    <h2 class="text-3xl font-bold mt-12 mb-6 text-center tracking-wide">Se connecter</h2>
+    
+    <form class="w-full max-w-sm bg-transparent">
+      <div class="mb-4">
+        <label for="login-email" class="block text-white text-sm font-semibold tracking-wide">Adresse e-mail</label>
+        <input type="email" id="login-email" name="login-email" placeholder="e-mail*"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <div class="mb-6">
+        <label for="login-password" class="block text-white text-sm font-semibold tracking-wide">Mot de passe *</label>
+        <input type="password" id="login-password" name="login-password" placeholder="Mots de passe*"
+          class="mt-1 w-full px-4 py-2 rounded-md bg-white text-black border border-white focus:border-cyan-400 focus:outline-none">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-cyan-400 text-black font-bold py-2 px-6 rounded-lg shadow-md hover:bg-cyan-500 transition duration-300">
+        Se connecter
+      </button>
+    </form>
+  </section>
+</Layout>
