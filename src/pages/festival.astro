@@ -6,6 +6,8 @@ const images = [
   '/src/assets/img/interstellar.webp',
   '/src/assets/img/retour.webp'
 ];
+
+import Matrix from '../assets/img/matrix.webp';
 ---
 
 <Layout>
@@ -31,7 +33,7 @@ const images = [
       <div class="mb-8">
         <h3 class="text-xl font-semibold text-cyan-400">Innovation</h3>
         <p class="text-gray-300">Un des ethos du festival pourrait être l'exploration de l’inconnu ainsi que l’imagination, et donc l’innovation. La science-fiction pousse le réalisateur à être imaginatif, pour offrir un contenu divers et se démarquer du déjà-vu. Ainsi, les courts métrages proposés par le festival sont également dans cette catégorie d’ethos.</p>
-        <img src="/src/assets/img/matrix.webp" alt="Matrix" class="w-full mt-4 rounded-lg shadow-lg" />
+        <img src={Matrix.src} alt="Matrix" class="w-full mt-4 rounded-lg shadow-lg" />
       </div>
       <div class="mb-8">
         <h3 class="text-xl font-semibold text-cyan-400">Créativité</h3>
