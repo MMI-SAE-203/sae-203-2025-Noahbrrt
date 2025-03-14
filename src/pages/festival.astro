@@ -2,12 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 
 const images = [
-  '/src/assets/img/avatar.webp',
-  '/src/assets/img/interstellar.webp',
-  '/src/assets/img/retour.webp'
+  '../assets/img/avatar.webp',
+  '../assets/img/interstellar.webp',
+  '../assets/img/retour.webp'
 ];
 
 import Matrix from '../assets/img/matrix.webp';
+import Inception from '../assets/img/inception.webp';
+import SpaceOdyssey from '../assets/img/2001.webp';
 ---
 
 <Layout>
@@ -39,12 +41,12 @@ import Matrix from '../assets/img/matrix.webp';
         <h3 class="text-xl font-semibold text-cyan-400">Créativité</h3>
         <p class="text-gray-300">
             Dans l’idée d’innovation, le festival se doit d’être créatif pour se démarquer des festivals déjà existants. Pour le public également, le festival doit le divertir au maximum. Il doit sortir du lot et aisément attirer le public. La créativité est donc un élément essentiel. De plus, les courts métrages qui seront diffusés se doivent d’être créatifs pour atteindre un maximum de personnes présentes dans le public.</p>
-        <img src="/src/assets/img/inception.webp" alt="Inception" class="w-full mt-4 rounded-lg shadow-lg" />
+        <img src={Inception.src} alt="Inception" class="w-full mt-4 rounded-lg shadow-lg" />
       </div>
       <div>
         <h3 class="text-xl font-semibold text-cyan-400">Curiosité</h3>
         <p class="text-gray-300">La curiosité et la créativité sont au cœur du festival, attirant le public avec des réalisateurs peu connus, des courts métrages innovants et des ateliers participatifs. La communication met en avant les scènes, concerts, et bandes-annonces pour susciter l’intérêt. Les participants sont encouragés à explorer et créer leurs propres courts métrages, rendant l'événement attractif et interactif, tout en laissant place à la découverte personnelle.</p>
-        <img src="/src/assets/img/2001.webp" alt="2001: L'Odyssée de l'espace" class="w-full mt-4 rounded-lg shadow-lg" />
+        <img src={SpaceOdyssey.src} alt="2001: L'Odyssée de l'espace" class="w-full mt-4 rounded-lg shadow-lg" />
       </div>
     </div>
   </section>
