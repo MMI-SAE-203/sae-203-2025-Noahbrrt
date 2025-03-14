@@ -2,12 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import { getActivityById, getAllActivitiesSorted, pb } from '../../../backend/backend.mjs';
 
-export async function getStaticPaths() {
-  const activities = await getAllActivitiesSorted();
-  return activities.map(activity => ({
-    params: { id: activity.id }
-  }));
-}
 
 const { id } = Astro.params;
 const activity = await getActivityById(id);

@@ -105,8 +105,3 @@ export async function updateGuest(id, data) {
     return record;
 }
 
-export async function getFilmById(id) {
-    const record = await pb.collection('films').getOne(id);
-    console.log("Affiche URL:", pb.files.getUrl(record, record.affiche)); // Vérifie si l'URL est bonne
-    return record;
-}

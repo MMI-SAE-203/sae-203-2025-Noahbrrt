@@ -1,13 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getGuestById, getAllGuestsSorted, pb } from '../../../backend/backend.mjs';
-
-export async function getStaticPaths() {
-  const guests = await getAllGuestsSorted();
-  return guests.map(guest => ({
-    params: { id: guest.id }
-  }));
-}
+import { getGuestById, getAllGuestsSorted, pb } from '../../../backend/backend.mjs';  
 
 const { id } = Astro.params;
 const guest = await getGuestById(id);
